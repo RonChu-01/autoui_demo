@@ -11,10 +11,12 @@ import queue
 import concurrent.futures
 import time
 import traceback
+import webbrowser
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
 from airtest.core.android.adb import ADB
 from airtest.core.api import auto_setup, init_device
+from jinja2 import Environment, FileSystemLoader
 
 from core.const.const_config import APP
 from core.ui_action.at_install_apk import ActionInstallApk
@@ -79,11 +81,11 @@ class Cases:
 
         ret = run_one_report(os.path.join(APP.AIRTEST_LOG_FILE_PATH, "empty.py"), uuid, log_dir)
 
-        return "success!", log_dir, ret
+        return uuid, ret
 
 
 def run_one_report(air, dev, log_dir):
-    """"
+    """
         生成一个脚本的测试报告
         Build one test report for one air script
     """
@@ -115,6 +117,37 @@ def run_one_report(air, dev, log_dir):
     return {'status': -1, 'device': dev, 'path': ''}
 
 
+def run_summary(data):
+    """"
+        生成汇总的测试报告
+        Build sumary test report
+    """
+    try:
+        summary = {
+            'time': "%.3f" % (time.time() - data['start']),
+            'success': [item['status'] for item in data['tests'].values()].count(0),
+            'count': len(data['tests'])
+        }
+        summary.update(data)
+        summary['start'] = time.strftime("%Y-%m-%d %H:%M:%S",
+                                         time.localtime(data['start']))
+        env = Environment(loader=FileSystemLoader(APP.AIRTEST_LOG_FILE_PATH),
+                          trim_blocks=True)
+        html = env.get_template('report_tpl.html').render(data=summary)
+        with open("report.html", "w", encoding="utf-8") as f:
+            f.write(html)
+        webbrowser.open('report.html')
+    except Exception as e:
+        traceback.print_exc()
+
+
+results = {
+    "start": time.time(),
+    "script": "",
+    "tests": {}
+}
+
+
 if __name__ == '__main__':
 
     devices = [dev[0] for dev in ADB().devices()]
@@ -126,6 +159,8 @@ if __name__ == '__main__':
         futures = [executor.submit(Cases.execute, uuid, APK, package_name_, game_name_) for uuid in devices]
 
     for future in concurrent.futures.as_completed(futures):
-        result = future.result()
-        print(result)
+        uuid, ret = future.result()
+        results["tests"][uuid] = ret
+
+    run_summary(results)
 
