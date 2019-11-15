@@ -1,0 +1,213 @@
+{
+	"7c74069f": {
+		"device_name":"vivo_Y75s",
+		"allow_permission": {
+			"allow_button": {
+				"poco":"android:id/button1"
+			}
+		}
+	},
+	"8f4aa86f": {
+		"device_name":"vivo_X21A",
+		"allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	},
+	"6PSCPZ8TCU5LCELZ": {
+		"device_name":"oppo_R15",
+		"allow_permission": {
+			"allow_button": {
+				"poco":"com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	},
+	"62d4851d": {
+		"device_name":"oppo_K3",
+		"allow_permission": {
+			"allow_button": {
+				"poco":"com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	},
+	"BURW7T6DNFMNSGYH": {
+		"device_name":"oppo_A73",
+		"allow_permission": {
+			"allow_button": {
+				"poco":"com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	},
+	"XPU4C17117022704": {
+        "device_name": "HUAWEI_Nova_CAZ_AL10",
+        "allow_permission": {
+			"allow_button": {
+				"poco":"com.android.packageinstaller:id/permission_allow_button"
+			}
+		},
+        "allow_app_list": {
+			"allow_button": {
+				"poco": "com.huawei.systemmanager:id/btn_allow"
+			}
+		}
+    },
+	"8c94da98": {
+        "device_name": "XIAOMI MX3",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "android:id/button1"
+			}
+		}
+    },
+	"SJE0217C15015569": {
+        "device_name": "HUAWEI_P10",
+        "allow_permission": {
+				"allow_button": {
+					"poco": "com.android.packageinstaller:id/permission_allow_button"
+				}
+		}
+    },
+    "UYT0217A26009539": {
+        "device_name": "HUAWEI_Mate_10",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"e6eac4d6": {
+        "device_name": "VIVO_X9",
+		"allow_permission": {
+			"allow_button": {
+				"poco":"android:id/button1"
+			}
+		}
+    },
+    "4bc88275": {
+        "device_name": "VIVO_iQOO_Neo",
+		"allow_permission": {
+			"allow_button": {
+				"poco":"com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"R28M317E3RA": {
+        "device_name": "Galaxy_S10",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"8d9ab256": {
+        "device_name": "MI_8",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "android:id/button1"
+			}
+		}
+    },
+	"28e5a871": {
+        "device_name": "SM_A6060",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"3134495134343098": {
+        "device_name": "Galaxy_S9",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"MQS7N19601013571": {
+        "device_name": "P30_pro_VOG_AL00",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"VBJ0218818008707": {
+        "device_name": "Honor_10_COL_AL10",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"5EF0218112013132": {
+        "device_name": "Mate_10_pro_BLA_AL00",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"CUY0219613009872": {
+		"device_name": "Honor_20YAL_AL00",
+        "allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"5cb715f3": {
+		"device_name": "红魔3",
+		"allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	},
+	"2225166d": {
+		"device_name": "VIVO_xplay6",
+		"allow_permission": {
+			"allow_button": {
+				"poco": "android:id/button1"
+			}
+		}
+	},
+	"0123456789ABCDEF": {
+		"device_name": "红辣椒7x",
+		"allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	},
+	"6a1d227b": {
+		"device_name": "realme_X青春版",
+		"allow_permission": {
+			"allow_button": {
+				"poco":"com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+    },
+	"711QEBSD2572X": {
+		"device_name": "MEIZU_M6",
+		"allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	},
+	"871QADSJKRL7R": {
+		"device_name": "M15",
+		"allow_permission": {
+			"allow_button": {
+				"poco": "com.android.packageinstaller:id/permission_allow_button"
+			}
+		}
+	}
+}
+
+
+
+
+
+

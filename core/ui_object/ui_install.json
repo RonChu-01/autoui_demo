@@ -1,0 +1,432 @@
+{
+	"7c74069f": {
+		"device_name":"vivo_Y75s",
+		"password":"a123456",
+		"installing":
+		{
+			"password_input":
+			{
+				"input":
+				{
+					"poco":"com.bbk.account:id/dialog_pwd"
+				},
+				"confirm_button":
+				{
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install":
+			{
+				"continue_button":
+				{
+					"poco":"com.android.packageinstaller:id/continue_button"
+				}
+			},
+			"install":
+			{
+				"install_button":
+				{
+					"poco":"com.android.packageinstaller:id/ok_button"
+				}
+			},
+			"done":
+			{
+				"done_button":
+				{
+					"poco":"com.android.packageinstaller:id/cancel_button"
+				}
+			}
+		}
+	},
+	"8f4aa86f": {
+		"device_name":"vivo_X21A",
+		"password":"a1234567",
+		"installing":
+		{
+			"password_input":
+			{
+				"input":
+				{
+					"poco":"com.bbk.account:id/dialog_pwd"
+				},
+				"confirm_button":
+				{
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install":
+			{
+				"continue_button":
+				{
+					"poco":"com.android.packageinstaller:id/continue_button"
+				}
+			},
+			"install":
+			{
+				"install_button":
+				{
+					"poco":"com.android.packageinstaller:id/ok_button"
+				}
+			},
+			"done":
+			{
+				"done_button":
+				{
+					"poco":"com.android.packageinstaller:id/done_button"
+				}
+			}
+		}
+	},
+	"6PSCPZ8TCU5LCELZ": {
+		"device_name":"oppo_R15",
+		"password":"a12345678",
+		"installing":
+		{
+			"password_input":
+			{
+				"input":
+				{
+					"poco":"com.coloros.safecenter:id/et_login_passwd_edit"
+				},
+				"confirm_button":
+				{
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install":
+			{
+				"continue_button":
+				{
+					"poco":"com.android.packageinstaller:id/virus_warning",
+					"click":[0.75, 0.5]
+				}
+			},
+			"install":
+			{
+				"install_button":
+				{
+					"template":
+					{
+						"img":"tpl1571640743711.png",
+						"record_pos":[-0.003, 0.761],
+						"resolution":[1080, 2280]
+					}
+				}
+			},
+			"done":
+			{
+				"done_button":
+				{
+					"poco":"com.android.packageinstaller:id/done_button"
+				}
+			}
+		}
+	},
+	"62d4851d": {
+		"device_name":"oppo_K3",
+		"password":"a1234567",
+		"installing":
+		{
+			"password_input":
+			{
+				"input":
+				{
+					"poco":"com.coloros.safecenter:id/et_login_passwd_edit"
+				},
+				"confirm_button":
+				{
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install":
+			{
+				"continue_button":
+				{
+					"poco":"com.android.packageinstaller:id/virus_warning",
+					"click":[0.75, 0.5]
+				}
+			},
+			"install":
+			{
+				"install_button":
+				{
+					"template":
+					{
+						"img":"tpl1571644412223.png",
+						"record_pos":[-0.001, 0.658],
+						"resolution":[1080, 2340]
+					}
+				}
+			},
+			"done":
+			{
+				"done_button":
+				{
+					"poco":"com.android.packageinstaller:id/done_button"
+				}
+			}
+		}
+	},
+	"BURW7T6DNFMNSGYH": {
+		"device_name":"oppo_A73",
+		"password":"a12345678",
+		"installing":
+		{
+			"password_input":
+			{
+				"input":
+				{
+					"poco":"com.coloros.safecenter:id/et_login_passwd_edit"
+				},
+				"confirm_button":
+				{
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install":
+			{
+				"continue_button":
+				{
+					"poco":"com.android.packageinstaller:id/virus_warning",
+					"click":[0.75, 0.5]
+				}
+			},
+			"install":
+			{
+				"install_button":
+				{
+					"template":
+					{
+						"img":"tpl1571629506271.png",
+						"record_pos":[-0.002, 0.578],
+						"resolution":[1080, 2160]
+					}
+				}
+			},
+			"done":
+			{
+				"done_button":
+				{
+					"poco":"com.android.packageinstaller:id/done_button"
+				}
+			}
+		}
+	},
+	"XPU4C17117022704": {
+        "device_name": "HUAWEI_Nova_CAZ_AL10"
+    },
+	"8c94da98": {
+        "device_name": "XIAOMI MX3"
+    },
+	"SJE0217C15015569": {
+        "device_name": "HUAWEI_P10"
+    },
+    "UYT0217A26009539": {
+        "device_name": "HUAWEI_Mate_10"
+    },
+	"e6eac4d6": {
+        "device_name": "VIVO_X9",
+		"password": "a1234567",
+		"installing":
+		{
+			"password_input":
+			{
+				"input":
+				{
+					"poco":"com.bbk.account:id/dialog_input"
+				},
+				"confirm_button":
+				{
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install":
+			{
+				"continue_button":
+				{
+					"poco":"com.android.packageinstaller:id/continue_button"
+				}
+			},
+			"install":
+			{
+				"install_button":
+				{
+					"poco":"com.android.packageinstaller:id/ok_button"
+				}
+			},
+			"done":
+			{
+				"done_button":
+				{
+					"poco":"com.android.packageinstaller:id/cancel_button"
+				},
+				"launch_button":
+				{
+					"poco":"com.android.packageinstaller:id/ok_button"
+				}
+			}
+		}
+    },
+    "4bc88275": {
+        "device_name": "VIVO_iQOO_Neo",
+		"password": "a1234567",
+		"installing":
+		{
+			"password_input":
+			{
+				"input":
+				{
+					"poco":"com.bbk.account:id/dialog_pwd"
+				},
+				"confirm_button":
+				{
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install":
+			{
+				"continue_button":
+				{
+					"poco":"com.android.packageinstaller:id/continue_button"
+				}
+			},
+			"install":
+			{
+				"install_button":
+				{
+					"poco":"com.android.packageinstaller:id/ok_button"
+				}
+			},
+			"done":
+			{
+				"done_button":
+				{
+					"poco":"com.android.packageinstaller:id/cancel_button"
+				},
+				"launch_button":
+				{
+					"poco": "com.android.packageinstaller:id/launch_button"
+				}
+			}
+		}
+    },
+	"R28M317E3RA": {
+        "device_name": "Galaxy_S10",
+		"installing": {
+			"install": {
+				"install_button": {
+					"poco":"com.android.packageinstaller:id/confirm_button"
+				}
+			}
+		}
+    },
+	"8d9ab256": {
+        "device_name": "MI_8"
+    },
+	"28e5a871": {
+        "device_name": "SM_A6060"
+    },
+	"3134495134343098": {
+        "device_name": "Galaxy_S9"
+    },
+	"MQS7N19601013571": {
+        "device_name": "P30_pro_VOG_AL00"
+    },
+	"VBJ0218818008707": {
+        "device_name": "Honor_10_COL_AL10"
+    },
+	"5EF0218112013132": {
+        "device_name": "Mate_10_pro_BLA_AL00"
+    },
+	"CUY0219613009872": {
+		"device_name": "Honor_20YAL_AL00"
+    },
+	"5cb715f3": {
+		"device_name": "红魔3"
+	},
+	"2225166d": {
+		"device_name": "VIVO_xplay6",
+		"password":"a1234567",
+		"installing": {
+			"password_input": {
+				"input": {
+					"poco":"com.bbk.account:id/dialog_pwd"
+				},
+				"confirm_button": {
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install": {
+				"continue_button": {
+					"poco":"com.android.packageinstaller:id/continue_button"
+				}
+			},
+			"install": {
+				"install_button": {
+					"poco":"com.android.packageinstaller:id/ok_button"
+				}
+			},
+			"done": {
+				"done_button": {
+					"poco":"com.android.packageinstaller:id/cancel_button"
+				}
+			}
+		}
+	},
+	"0123456789ABCDEF": {
+		"device_name": "红辣椒7x",
+		"installing": {
+			"install": {
+				"install_button": {
+					"poco":"com.zhuoyi.security.service:id/pi_ok_button"
+				}
+			}
+		}
+	},
+	"6a1d227b": {
+		"device_name": "realme_X青春版",
+		"password": "a1234567",
+		"installing": {
+			"password_input": {
+				"input": {
+					"poco":"com.coloros.safecenter:id/et_login_passwd_edit"
+				},
+				"confirm_button": {
+					"poco":"android:id/button1"
+				}
+			},
+			"continue_install": {
+				"continue_button": {
+					"poco":"com.android.packageinstaller:id/virus_warning",
+					"click":[0.75, 0.5]
+				}
+			},
+			"install": {
+				"install_button": {
+					"template": {
+						"img":"tpl1572502936610.png",
+						"record_pos":[0.0, 0.658],
+						"resolution":[1080, 2340]
+					}
+				}
+			},
+			"done": {
+				"done_button": {
+					"poco":"com.android.packageinstaller:id/done_button"
+				}
+			}
+		}
+    },
+	"711QEBSD2572X": {
+		"device_name": "MEIZU_M6"
+	},
+	"871QADSJKRL7R": {
+		"device_name": "M15"
+	}
+}
+
+
+
+
+
+
