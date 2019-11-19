@@ -13,15 +13,19 @@ import time
 import traceback
 import webbrowser
 from concurrent.futures import ProcessPoolExecutor, as_completed
+import unittest
 
+from airtest.cli.runner import AirtestCase
 from airtest.core.android.adb import ADB
-from airtest.core.api import auto_setup, init_device
+from airtest.core.api import auto_setup, init_device, assert_equal
 from jinja2 import Environment, FileSystemLoader
 
 from core.const.const_config import APP
 from core.ui_action.at_install_apk import ActionInstallApk
 from core.ui_action.at_permission_allow import ActionAllowPermission
-from core.ui_testcase.other import Task
+from core.ui_testcase.base import BaseCase
+from core.ui_testcase.test_allow_permission import TestAllowPermission
+from core.ui_testcase.test_install import TestInstall
 from core.utils.aapt_util import get_packagename_and_launchable_activity
 
 
@@ -148,15 +152,38 @@ results = {
 }
 
 
-if __name__ == '__main__':
+def run_case(uuid):
 
-    devices = [dev[0] for dev in ADB().devices()]
+    log_dir = os.path.join(APP.AIRTEST_LOG_FILE_PATH, uuid, time.strftime("%Y_%m_%d_%H_%M_%S"))
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    # todo 需要加上这一句，否则pocoservice会报错
+    auto_setup(basedir=APP.WORKSPACE, devices=["Android:///" + uuid], logdir=log_dir)
 
     APK = "3139_wdsm_wdsm_3k_20191112_28835_28835.apk"
     game_name_, package_name_, launchable_activity = get_packagename_and_launchable_activity(APK)
 
+    # 需要实现测试发现功能
+    suite = unittest.TestSuite()
+    suite.addTest(BaseCase.parametrize(TestInstall, uuid=uuid, group_name=game_name_, apk_path=APK,
+                                       package_name=package_name_))
+    suite.addTest(BaseCase.parametrize(TestAllowPermission, uuid=uuid, group_name=game_name_, apk_path=APK,
+                                       package_name=package_name_))
+
+    unittest.TextTestRunner().run(suite)
+
+    ret_ = run_one_report(os.path.join(APP.AIRTEST_LOG_FILE_PATH, "empty.py"), uuid, log_dir)
+
+    return uuid, ret_
+
+
+if __name__ == '__main__':
+
+    devices = [dev[0] for dev in ADB().devices()]
+
     with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
-        futures = [executor.submit(Cases.execute, uuid, APK, package_name_, game_name_) for uuid in devices]
+        futures = [executor.submit(run_case, uuid) for uuid in devices]
 
     for future in concurrent.futures.as_completed(futures):
         uuid, ret = future.result()
