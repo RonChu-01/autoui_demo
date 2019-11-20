@@ -14,9 +14,6 @@ import traceback
 import webbrowser
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import unittest
-import glob
-from fnmatch import fnmatch
-import importlib
 
 from airtest.cli.runner import AirtestCase
 from airtest.core.android.adb import ADB
@@ -167,12 +164,7 @@ def run_case(uuid):
     APK = "3139_wdsm_wdsm_3k_20191112_28835_28835.apk"
     game_name_, package_name_, launchable_activity = get_packagename_and_launchable_activity(APK)
 
-    # discover = unittest.defaultTestLoader.discover(start_dir=APP.TEST_CASE_ROOT_PATH,
-    #                                                pattern="test*.py",
-    #                                                top_level_dir=None)
-
-    # todo: 需要实现测试发现功能
-    #  这里需要注意一下：后续会开放多个接口，有一键执行多个用例接口，有执行特定用例接口；
+    # 需要实现测试发现功能
     suite = unittest.TestSuite()
     suite.addTest(BaseCase.parametrize(TestInstall, uuid=uuid, group_name=game_name_, apk_path=APK,
                                        package_name=package_name_))
@@ -186,17 +178,54 @@ def run_case(uuid):
     return uuid, ret_
 
 
-if __name__ == '__main__':
+async def run_script(uuid):
+
+    log_dir = os.path.join(APP.AIRTEST_LOG_FILE_PATH, uuid, time.strftime("%Y_%m_%d_%H_%M_%S"))
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    # todo 需要加上这一句，否则pocoservice会报错
+    auto_setup(basedir=APP.WORKSPACE, devices=["Android:///" + uuid], logdir=log_dir)
+
+    APK = "3139_wdsm_wdsm_3k_20191112_28835_28835.apk"
+    game_name_, package_name_, launchable_activity = get_packagename_and_launchable_activity(APK)
+
+    # 需要实现测试发现功能
+    suite = unittest.TestSuite()
+    suite.addTest(BaseCase.parametrize(TestInstall, uuid=uuid, group_name=game_name_, apk_path=APK,
+                                       package_name=package_name_))
+    suite.addTest(BaseCase.parametrize(TestAllowPermission, uuid=uuid, group_name=game_name_, apk_path=APK,
+                                       package_name=package_name_))
+
+    # todo： 单元测试的run方法导致协程不能运行？
+    unittest.TextTestRunner().run(suite)
+
+    ret_ = run_one_report(os.path.join(APP.AIRTEST_LOG_FILE_PATH, "empty.py"), uuid, log_dir)
+
+    return uuid, ret_
+
+
+async def main_():
 
     devices = [dev[0] for dev in ADB().devices()]
+    tasks = [run_script(uuid=dev) for dev in devices]
+    await asyncio.gather(*tasks)
 
-    # todo: 进程数量可以用在线设备数关联，如果在线设备数量 > 20 则用常量值，否则用在线设备数
-    with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
-        futures = [executor.submit(run_case, uuid) for uuid in devices]
 
-    for future in concurrent.futures.as_completed(futures):
-        uuid, ret = future.result()
-        results["tests"][uuid] = ret
+if __name__ == '__main__':
 
-    run_summary(results)
+    # devices = [dev[0] for dev in ADB().devices()]
+    #
+    # tasks = [asyncio.create_task(run_script(dev)) for dev in devices]
+
+    asyncio.run(main_())
+
+    # with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
+    #     futures = [executor.submit(run_case, uuid) for uuid in devices]
+    #
+    # for future in concurrent.futures.as_completed(futures):
+    #     uuid, ret = future.result()
+    #     results["tests"][uuid] = ret
+    #
+    # run_summary(results)
 

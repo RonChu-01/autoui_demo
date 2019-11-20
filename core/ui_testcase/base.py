@@ -7,6 +7,9 @@ import unittest
 
 
 class BaseCase(unittest.TestCase):
+
+    PRIORITY = 0  # 用于指定用例执行顺序
+
     """
         测试用例基类：TestCase classes that want to be parametrized should inherit from this class.
 
@@ -40,20 +43,3 @@ class BaseCase(unittest.TestCase):
         for name in test_names:
             suite.addTest(test_cls(name, uuid, group_name, apk_path, package_name))
         return suite
-
-
-# class TestOne(BaseCase):
-#
-#     def test_something(self):
-#         print("-> ", self.uuid)
-#         self.assertEqual(1, 1)
-#
-#     def test_something_else(self):
-#         self.assertEqual(2, 2)
-#
-#
-# if __name__ == '__main__':
-#     suite_ = unittest.TestSuite()
-#     suite_.addTest(BaseCase.parametrize(TestOne, uuid="1", group_name="我的使命", apk_path="d:/", package_name="com"))
-#     suite_.addTest(BaseCase.parametrize(TestOne, uuid="2", group_name="我的使命", apk_path="d:/", package_name="com"))
-#     unittest.TextTestRunner(verbosity=2).run(suite_)

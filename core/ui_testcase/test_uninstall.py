@@ -10,6 +10,8 @@ from core.ui_testcase.base import BaseCase
 class TestUninstall(BaseCase):
     """  卸载 """
 
+    PRIORITY = 3  # 用于指定用例执行顺序
+
     def setUp(self):
         self.install = ActionInstallApk(self.uuid)
 

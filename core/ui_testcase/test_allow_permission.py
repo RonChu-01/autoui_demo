@@ -9,6 +9,8 @@ from core.ui_testcase.base import BaseCase
 
 class TestAllowPermission(BaseCase):
 
+    PRIORITY = 2  # 用于指定用例执行顺序
+
     def setUp(self):
         self.permission = ActionAllowPermission(self.uuid, self.group_name)
 
