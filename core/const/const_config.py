@@ -31,6 +31,9 @@ APP.LOG_FILE_PATH = os.path.join(APP.WORKSPACE, "core", "logs")  # 日志文件�
 APP.LOG_FILE_FORMAT = '{0}.txt'.format(time.strftime("%Y_%m_%d_%H_%M_%S"))  # 日志文件保存格式
 APP.LOG_FILE_NAME = os.path.join(APP.LOG_FILE_PATH, APP.LOG_FILE_FORMAT)  # 日志名
 
+# ==测试用例相关配置==
+APP.TEST_CASE_ROOT_PATH = os.path.join(APP.WORKSPACE, "core", "ui_testcase")
+
 # ==Airtest库日志文件相关配置==
 APP.AIRTEST_LOG_FILE_PATH = os.path.join(APP.WORKSPACE, "core", "log")
 
@@ -42,4 +45,4 @@ APP.IS_DEBUG = False
 
 
 if __name__ == '__main__':
-    print(APP.WORKSPACE)
+    print(APP.TEST_CASE_ROOT_PATH)

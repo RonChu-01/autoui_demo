@@ -7,7 +7,7 @@ from core.ui_action.at_install_apk import ActionInstallApk
 from core.ui_testcase.base import BaseCase
 
 
-class TestUnInstall(BaseCase):
+class TestUninstall(BaseCase):
     """  卸载 """
 
     def setUp(self):

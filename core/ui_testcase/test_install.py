@@ -17,11 +17,15 @@ class TestInstall(BaseCase):
         pass
 
     def test_install(self):
-        # 安装相关操作
-        proc_ = self.install.start_install(self.apk_path)
-        if self.install.ui_install_object_info.get('installing'):
-            self.install.do_installing(self.install.ui_install_object_info.get('installing'))
-        proc_.wait()  # 等待apk安装完毕，执行后续操作
+        # 检测是否已经安装过该包
+        if self.package_name not in self.uuid.list_app():
+            # 安装相关操作
+            proc_ = self.install.start_install(self.apk_path)
+            if self.install.ui_install_object_info.get('installing'):
+                self.install.do_installing(self.install.ui_install_object_info.get('installing'))
+            proc_.wait()  # 等待apk安装完毕，执行后续操作
+
+        self.install.stop_app(self.package_name)
 
     def test_start_app(self):
         self.install.start_app(self.package_name)

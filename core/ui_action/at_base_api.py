@@ -157,3 +157,12 @@ class ActionBaseApi:
         """
         self.dev.uninstall_app(package, activity)
 
+    def stop_app(self, package):
+        """
+        停止app
+
+        :param package:
+        :return:
+        """
+        self.dev.stop_app(package)
+

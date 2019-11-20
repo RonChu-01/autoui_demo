@@ -14,6 +14,9 @@ import traceback
 import webbrowser
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import unittest
+import glob
+from fnmatch import fnmatch
+import importlib
 
 from airtest.cli.runner import AirtestCase
 from airtest.core.android.adb import ADB
@@ -164,7 +167,12 @@ def run_case(uuid):
     APK = "3139_wdsm_wdsm_3k_20191112_28835_28835.apk"
     game_name_, package_name_, launchable_activity = get_packagename_and_launchable_activity(APK)
 
-    # 需要实现测试发现功能
+    # discover = unittest.defaultTestLoader.discover(start_dir=APP.TEST_CASE_ROOT_PATH,
+    #                                                pattern="test*.py",
+    #                                                top_level_dir=None)
+
+    # todo: 需要实现测试发现功能
+    #  这里需要注意一下：后续会开放多个接口，有一键执行多个用例接口，有执行特定用例接口；
     suite = unittest.TestSuite()
     suite.addTest(BaseCase.parametrize(TestInstall, uuid=uuid, group_name=game_name_, apk_path=APK,
                                        package_name=package_name_))
@@ -178,16 +186,119 @@ def run_case(uuid):
     return uuid, ret_
 
 
+def get_all_case(path):
+    """
+    非递归（添加过滤）
+
+    :param path:
+    :return:
+    """
+    files = [file for file in os.listdir(path) if fnmatch(file, "test*.py")]
+    return files
+
+
+def get_all_case_by_walk(path):
+    """
+    递归遍历文件目录
+
+    :param path:
+    :return:
+        返回一个生成器generator
+    """
+
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            # 过滤文件
+            if fnmatch(file, "test*.py"):
+                yield file
+
+
+def file_to_test_case_class(path):
+    """
+    测试用例文件(test*.py文件)，转换为测试用例类
+
+    :param path:
+    :return:
+    """
+
+    name = [underline_to_camel(file.split(".")[0].strip()) for file in get_all_case_by_walk(path)]
+
+    return name
+
+
+def get_all_case_by_walk_2(path):
+    """
+    递归遍历文件目录
+
+    :param path:
+    :return:
+    """
+
+    result = []
+
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            # 过滤文件
+            if fnmatch(file, "test*.py"):
+                result.append((root, file))
+
+    return result
+
+
+def file_to_test_case_class_2(path):
+    """
+    测试用例文件(test*.py文件)，转换为测试用例类
+
+    :param path:
+    :return:
+    """
+
+    pass
+
+
+def underline_to_camel(underline_format):
+    """
+    下划线命名格式驼峰命名格式
+
+    :param underline_format:
+    :return:
+    """
+    camel_format = ""
+    if isinstance(underline_format, str):
+        for word in underline_format.split('_'):
+            camel_format += word.capitalize()
+    return camel_format
+
+
 if __name__ == '__main__':
 
-    devices = [dev[0] for dev in ADB().devices()]
+    # devices = [dev[0] for dev in ADB().devices()]
+    #
+    # # todo: 进程数量可以用在线设备数关联，如果在线设备数量 > 20 则用常量值，否则用在线设备数
+    # with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
+    #     futures = [executor.submit(run_case, uuid) for uuid in devices]
+    #
+    # for future in concurrent.futures.as_completed(futures):
+    #     uuid, ret = future.result()
+    #     results["tests"][uuid] = ret
+    #
+    # run_summary(results)
 
-    with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
-        futures = [executor.submit(run_case, uuid) for uuid in devices]
+    # print(get_all_case(APP.TEST_CASE_ROOT_PATH))
+    # print(get_all_case_by_walk(APP.TEST_CASE_ROOT_PATH))
 
-    for future in concurrent.futures.as_completed(futures):
-        uuid, ret = future.result()
-        results["tests"][uuid] = ret
+    # for dir_ in get_all_case_by_walk(APP.TEST_CASE_ROOT_PATH):
+    #     print(dir_)
 
-    run_summary(results)
+    # for mod in file_to_test_case_class(APP.TEST_CASE_ROOT_PATH):
+    #     importlib.import_module(mod, package=APP.TEST_CASE_ROOT_PATH)
+    # importlib.import_module()
 
+    for info in get_all_case_by_walk_2(APP.TEST_CASE_ROOT_PATH):
+        file_path, file_name = info
+        file_path = file_path.split(":")[1].replace("\\", ".").replace(".workspace.autoui_demo.", "")
+        # 动态导入模块
+        model = importlib.import_module(".{0}".format(file_name.split(".")[0]), package=file_path)
+        # 获取类对象
+        class_name = getattr(model, underline_to_camel(file_name.split(".")[0]))
+        print(class_name)
