@@ -34,6 +34,7 @@ def suite_all_case(uuid, group_name, apk_path, package_name):
         # todo: 添加类型检测与异常处理，以及日志埋点信息
 
         # 获取模块路径
+        # todo: 这里注意，如果是在unix或者linux系统需要分平台处理
         file_path = file_path.split(":")[1].replace("\\", ".").replace(".workspace.autoui_demo.", "")
 
         # 动态导入模块
