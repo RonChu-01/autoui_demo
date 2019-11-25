@@ -47,7 +47,7 @@ def run_one_report(air, dev, log_dir):
 
 
 def run_summary(data):
-    """"
+    """
         生成汇总的测试报告
         Build sumary test report
     """

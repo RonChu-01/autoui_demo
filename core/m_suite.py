@@ -3,6 +3,7 @@
 # Copyright (c) 2019 3KWan.
 # Description :
 import importlib
+import re
 import unittest
 
 from core.const.const_config import APP
@@ -35,7 +36,7 @@ def suite_all_case(uuid, group_name, apk_path, package_name):
 
         # 获取模块路径
         # todo: 这里注意，如果是在unix或者linux系统需要分平台处理
-        file_path = file_path.split(":")[1].replace("\\", ".").replace(".workspace.autoui_demo.", "")
+        file_path = re.sub(r'.*core', 'core', file_path).replace("\\", ".")
 
         # 动态导入模块
         model = importlib.import_module(".{0}".format(file_name.split(".")[0]), package=file_path)

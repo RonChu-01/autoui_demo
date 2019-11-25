@@ -179,5 +179,5 @@ if __name__ == '__main__':
         Init variables here
     """
     devices = [tmp[0] for tmp in ADB().devices()]
-    air = 'D:/woodpecker/core/ui_testcase/install.air'
-    run(devices, air)
+    air = 'D:/workspace/autoui_demo/core/ui_testcase/install.air'  # 通过不同脚本来区分不同任务（任务顺序执行，优先级队列）
+    run(devices, air)  # 多机运行

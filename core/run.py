@@ -100,53 +100,40 @@ def run_case_by_custom(uuid, apk_path):
         return uuid, result
 
 
-def run(apk_path, target_device: list = None):
+def run(func, apk_path, target_device: list = None):
     """
-    程序主入口
+    程序主入口（多机运行）
 
+    :param func:
     :param apk_path:
     :param target_device: 如果未指定，则运行在所有在线设备上
     :return:
     """
 
-    if not target_device:
-        devices = [dev[0] for dev in ADB().devices()]
+    # 添加类型转换，防止传参错误
+    if target_device:
+        target_device = list(target_device)
 
-        # todo: 进程数量可以用在线设备数关联，如果在线设备数量 > 20 则用常量值，否则用在线设备数
-        with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
-            futures = [executor.submit(run_case_by_custom, uuid, apk_path) for uuid in devices]
+    # 获取在线设备
+    devices = [dev[0] for dev in ADB().devices()] if not target_device else target_device
 
-        for future in concurrent.futures.as_completed(futures):
-            uuid, ret = future.result()
-            if ret:
-                results["tests"][uuid] = ret
-            else:
-                logger.info("测试出错请检查")
+    # todo: 进程数量可以用在线设备数关联，如果在线设备数量 > 20 则用常量值，否则用在线设备数
+    with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
+        futures = [executor.submit(func, uuid, apk_path) for uuid in devices]
 
-        run_summary(results)
+    for future in concurrent.futures.as_completed(futures):
+        uuid, ret = future.result()
+        if ret:
+            results["tests"][uuid] = ret
+        else:
+            logger.info("测试出错请检查")
 
-    # 运行特定设备
-    else:
-        # 如果传入的设备不是列表，转化为列表
-        if not isinstance(target_device, list):
-            target_device = list(target_device)
-
-        with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
-            futures = [executor.submit(run_case_by_custom, uuid, apk_path) for uuid in target_device]
-
-        for future in concurrent.futures.as_completed(futures):
-            uuid, ret = future.result()
-            if ret:
-                results["tests"][uuid] = ret
-            else:
-                logger.info("测试出错请检查")
-
-        run_summary(results)
+    run_summary(results)
 
 
 if __name__ == '__main__':
     APK = "3139_wdsm_wdsm_3k_20191112_28835_28835.apk"
-    run(APK)
+    run(run_case_by_custom, APK)
 
 
 

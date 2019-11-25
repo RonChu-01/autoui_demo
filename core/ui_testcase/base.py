@@ -11,7 +11,7 @@ class BaseCase(unittest.TestCase):
     PRIORITY = 0  # 用于指定用例执行顺序
 
     """
-        测试用例基类：TestCase classes that want to be parametrized should inherit from this class.
+        测试用例基类（用于参数化）：TestCase classes that want to be parametrized should inherit from this class.
 
     """
     def __init__(self, method_name='runTest', uuid=None, group_name=None, apk_path=None, package_name=None):
