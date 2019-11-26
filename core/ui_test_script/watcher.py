@@ -29,6 +29,7 @@ def loop_watcher(find_element, timeout):
     while True:
         try:
             logger.info("开始执行轮询")
+            # todo：这里需要注意：多线程轮询会出现错过UI显示，从而在UI不在的时候执行了点击操作，考虑优化；（协程状态机？）
             find_element.wait_for_appearance(timeout=timeout)
         except Exception as e:
             logger.info("-> " + str(e))

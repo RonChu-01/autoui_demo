@@ -92,7 +92,7 @@ def run_case_by_custom(uuid, apk_path):
     try:
         unittest.TextTestRunner().run(suite)
     except Exception as e:
-        logger.info(str(e))
+        logger.info(str("run_case_by_custom error: {0}".format(e)))
         return uuid, {}
     else:
         # 运行报告
@@ -121,12 +121,17 @@ def run(func, apk_path, target_device: list = None):
     with concurrent.futures.ProcessPoolExecutor(max_workers=3) as executor:
         futures = [executor.submit(func, uuid, apk_path) for uuid in devices]
 
-    for future in concurrent.futures.as_completed(futures):
-        uuid, ret = future.result()
-        if ret:
-            results["tests"][uuid] = ret
-        else:
-            logger.info("测试出错请检查")
+        for future in concurrent.futures.as_completed(futures):
+            try:
+                uuid, ret = future.result()
+            except Exception as e:
+                logger.info("generated an exception: {0}".format(e))
+                logger.info("测试出错请检查")
+            else:
+                if ret:
+                    results["tests"][uuid] = ret
+                else:
+                    logger.info("测试出错请检查")
 
     run_summary(results)
 
