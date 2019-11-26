@@ -96,9 +96,9 @@ class ActionInstallApk(ActionBaseApi):
                 self.do_click(continue_button)
 
         # 执行安装
-        if installing.get('install.air'):
-            if installing.get('install.air').get('install_button'):
-                install_button = installing.get('install.air').get('install_button')
+        if installing.get('install'):
+            if installing.get('install').get('install_button'):
+                install_button = installing.get('install').get('install_button')
                 img_file_path = self.get_install_template_img_file_path()
                 self.do_click(install_button, tpl_file_path=img_file_path)
 

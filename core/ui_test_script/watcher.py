@@ -2,14 +2,11 @@
 # Created by #chuyong, on 2019/11/25.
 # Copyright (c) 2019 3KWan.
 # Description :
+
 import threading
 import time
 
-from airtest.core.api import init_device
-from poco.drivers.android.uiautomation import AndroidUiautomationPoco
-
 from core.libs.logs.logger import Logger
-from core.utils.aapt_util import get_packagename_and_launchable_activity
 
 logger = Logger("watcher")
 
@@ -27,26 +24,25 @@ def loop_watcher(find_element, timeout):
 
     logger.info('thread {0} is running...'.format(thread_name))
 
-    start_time = time.time()
     # 计数（用于轮询，目前设为最多执行5次点击）
     count = 0
     while True:
-        if find_element.exists():
+        try:
+            logger.info("开始执行轮询")
+            find_element.wait_for_appearance(timeout=timeout)
+        except Exception as e:
+            logger.info("-> " + str(e))
+            break
+        else:
+            logger.info("开始执行点击操作")
             find_element.click()
+            # 每次轮询点击的时间间隔，api是1.44s
+            time.sleep(1.5)
             count += 1
-            logger.info("观察者线程 {0} 发现".format(thread_name))
             if count < 5:
                 continue
             else:
                 break
-        elif (time.time() - start_time) < timeout:
-            logger.info("观察者线程 {} 等待1秒".format(thread_name))
-            time.sleep(1)
-        else:
-            logger.info("观察者线程 {} 超时未发现".format(thread_name))
-            break
-
-    logger.info('thread {0} ended...'.format(thread_name))
 
 
 def watcher(texts: list = None, poco=None, timeout=15):
@@ -80,33 +76,3 @@ def watcher(texts: list = None, poco=None, timeout=15):
 
     for i in range(len(texts)):
         threads[i].join()
-
-
-if __name__ == '__main__':
-
-    # apk = "3139_wdsm_wdsm_3k_20191112_28835_28835.apk"
-    # apk = "2905_wdsm_wdsmzgl_qq3k_20191108_28156_28156.apk"
-
-    # apk = "620_wzzg_wzzg_360_20190920_0_21381.apk"
-    # apk = "1903_wzzg_wzzgjymz_qq3k_20191012_24007_24007.apk"
-
-    # apk = "2322_xcqy_xcqymhxy_qq3k_20190930_26519_26519.apk"
-
-    # apk = "3165_tkqx_tkqx_3k_20191106_2833_2833.apk"
-    apk = "3372_tkqx_tkqxzh_qq3k_20191112_23875_23875.apk"
-
-    game_name, package_name, activity = get_packagename_and_launchable_activity(apk)
-
-    dev = init_device()
-    if package_name not in dev.list_app():
-        # 使用这种方式不会因为遇到弹框而阻塞
-        dev.adb.push(apk, "/data/local/tmp/")
-        proc = dev.adb.start_shell("pm install /data/local/tmp/{0}".format(apk))
-
-    dev.stop_app(package_name)
-    dev.start_app(package_name)
-
-    poco = AndroidUiautomationPoco()
-    # 权限框弹窗处理
-    btn_text = ["确认", "始终允许", "允许", "总是允许"]
-    watcher(btn_text, poco=poco)
