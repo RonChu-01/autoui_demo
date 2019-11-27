@@ -15,8 +15,7 @@ class ActionBaseApi:
 
     def __init__(self, uuid):
         self.uuid = uuid
-        # screenshot_each_action = False 设为false取消每步骤的截图操作（前面的通用部分取消）
-        self.poco = AndroidUiautomationPoco(screenshot_each_action=False)
+        self.poco = AndroidUiautomationPoco()
         self.dev = init_device(uuid=uuid)
 
     def do_click(self, objects, tpl_file_path=None, is_permission=False):
